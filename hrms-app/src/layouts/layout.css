@@ -1,0 +1,168 @@
+.auth-layout {
+	margin-top: 150px;
+}
+
+.login-signup-form {
+	display: block;
+	margin: auto;
+	width: 30vw;
+
+	border: 2px solid #363636;
+	border-radius: 10px;
+	padding: 25px;
+	background-color: #ffffff;
+}
+
+.login-signup-form .title {
+	font-weight: bold;
+	margin-bottom: 25px;
+}
+
+.message {
+	font-size: 15px;
+	text-align: center;
+}
+
+.alert-message {
+	font-size: 20px;
+	align-self: top;
+	color: #012c0c;
+	border: 1px solid #000;
+}
+
+.success {
+	background-color: #10c23c;
+}
+
+.danger {
+	background-color: #bd1515;
+}
+
+.list-table {
+	margin: 25px;
+}
+.create-div {
+	display: flex;
+	padding: 10px;
+	justify-content: left;
+}
+
+.create-div .create-button {
+	font-size: 15px;
+	padding: 5px;
+	width: 15%;
+	background-color: #380568;
+	color: #ffffff;
+}
+
+.create-page {
+	padding: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+h1 {
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.create-form {
+	border: 1px solid #adadad;
+	border-radius: 25px;
+	padding: 50px;
+	max-width: 900px;
+}
+
+.save {
+	border-radius: 10px;
+}
+
+.table-button {
+	font-size: 12px;
+	padding: 10px;
+	width: 100%;
+	background-color: #380568;
+	text-decoration: none;
+	color: #fff;
+}
+
+.job-list-container {
+	padding: 50px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	gap: 1rem;
+}
+
+.job-list-item {
+	border: 1px solid #7e7e7e;
+	border-radius: 5px;
+}
+
+.job-item {
+	display: grid;
+	padding: 15px;
+}
+
+.job-item button {
+	margin-top: 25px;
+	width: 50%;
+	padding: 5px;
+	font-size: 15px;
+}
+
+.job-item .job-link {
+	margin-top: 25px;
+	border: 1px solid black;
+	padding: 10px 25px;
+	background-color: #380568;
+	font-size: 15px;
+	text-decoration: none;
+	color: white;
+	width: 30%;
+	text-align: center;
+}
+
+.list-table .job-details {
+	display: grid;
+}
+
+.list-table .job-details h2 {
+	margin: 5px;
+}
+
+.profile-page {
+	padding: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+.profile-details {
+	border: 1px solid #adadad;
+	border-radius: 25px;
+	padding: 50px;
+	max-width: 1200px;
+}
+
+.profile-row {
+	column-count: 2;
+	-moz-column-count: 2;
+	-webkit-column-count: 2;
+}
+
+.attendance-koist {
+	display: flex;
+	padding: 150px;
+	justify-content: center;
+}
+
+.attendance-koist .attendance-panel {
+	border: 1px solid #adadad;
+	border-radius: 10px;
+	padding: 50px;
+	text-align: center;
+	width: 750px;
+}
+
+.attendance-panel button {
+	margin: 15px 0px;
+}
