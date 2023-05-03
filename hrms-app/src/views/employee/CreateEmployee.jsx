@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios_client from "../../axios-client";
 
 export default function CreateEmployee() {
@@ -7,6 +7,7 @@ export default function CreateEmployee() {
 	const firstname = useRef();
 	const lastname = useRef();
 	const position = useRef();
+	const navigate = useNavigate();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -21,7 +22,8 @@ export default function CreateEmployee() {
 		axios_client
 			.post("/create-employee", payload)
 			.then((response) => {
-				console.log(response);
+				alert(response.data.message);
+				navigate(`/company-employee-list/${id}`);
 			})
 			.catch(({ response }) => {
 				console.log(response.data.message);

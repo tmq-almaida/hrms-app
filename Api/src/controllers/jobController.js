@@ -67,28 +67,13 @@ export const getJob = (req, res) => {
 };
 
 export const getJobList = (req, res) => {
-	Job.find()
-		.populate("company_id")
-		.exec((err, company) => {
-			if (err) return res.status(400).json({ message: err });
+	const { id } = req.params;
 
-			const jobs = company.map((map) => {
-				// console.log(map.company_id.company_owner.toString());
-				if (map.company_id.company_owner.toString() === req.token) {
-					return {
-						id: map._id,
-						company_name: map.company_id.company_name,
-						title: map.title,
-						position: map.position,
-						requirements: map.requirements,
-						start_date: date_format.format(map.start_date),
-						end_date: date_format.format(map.end_date)
-					};
-				}
-			});
+	Job.find({ company_id: id }, (err, jobs) => {
+		if (err) return res.status(400).json({ message: err });
 
-			return res.status(200).json({ data: jobs });
-		});
+		return res.status(200).json({ data: jobs });
+	});
 };
 
 export const getQuestJobList = (req, res) => {

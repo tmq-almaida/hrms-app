@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios_client from "../../axios-client";
 
 export default function EmployeeProfile() {
 	const { id } = useParams();
+	const navigate = useNavigate();
+	const [disabled, setDisabled] = useState(true);
 	const [employee, setEmployee] = useState({
 		_id: "",
 		firstname: "",
@@ -26,18 +28,56 @@ export default function EmployeeProfile() {
 		company_name: ""
 	});
 
+	const [user, setUser] = useState({
+		email: "",
+		access_rights: {
+			role: ""
+		}
+	});
+
 	const getEmployee = () => {
 		axios_client
 			.get(`/employee-profile/${id}`)
 			.then(({ data }) => {
-				console.log(data);
+				// console.log(data);
 				setCompany(data.data.company_id);
 				setEmployee(data.data);
 				setAttendance(data.data.attendance);
+				if (data.data.user) setUser(data.data.user);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+	};
+
+	const updateEmployee = () => {
+		const payload = {
+			firstname: employee.firstname,
+			lastname: employee.lastname,
+			position: employee.position,
+			status: employee.status,
+			date_hired: employee.date_hired,
+			date_ended: employee.date_ended
+		};
+
+		axios_client
+			.put(`/update-employee/${id}`, payload)
+			.then((response) => {
+				alert(response.data.message);
+				edit();
+			})
+			.catch(({ response }) => {
+				alert(response.data.message);
+				edit();
+			});
+	};
+
+	const edit = () => {
+		setDisabled(!disabled);
+	};
+
+	const createUser = () => {
+		navigate(`/create-user/${id}`);
 	};
 
 	useEffect(() => {
@@ -48,7 +88,24 @@ export default function EmployeeProfile() {
 		<>
 			<div className="profile-page">
 				<div className="profile-details">
-					<h2>Employee Details</h2>
+					<div className="profile-row">
+						<h2>Employee Details</h2>
+						{disabled ? (
+							<button
+								className="employee-button"
+								onClick={edit}
+							>
+								Edit
+							</button>
+						) : (
+							<button
+								className="employee-button"
+								onClick={updateEmployee}
+							>
+								Save
+							</button>
+						)}
+					</div>
 					<div className="profile-row">
 						<label htmlFor="Company">Company</label>
 						<input
@@ -76,7 +133,7 @@ export default function EmployeeProfile() {
 									firstname: ev.target.value
 								})
 							}
-							disabled
+							disabled={disabled}
 						/>
 
 						<label htmlFor="lastname">Lastname</label>
@@ -90,7 +147,7 @@ export default function EmployeeProfile() {
 									lastname: ev.target.value
 								})
 							}
-							disabled
+							disabled={disabled}
 						/>
 					</div>
 					<div className="profile-row">
@@ -105,7 +162,7 @@ export default function EmployeeProfile() {
 									position: ev.target.value
 								})
 							}
-							disabled
+							disabled={disabled}
 						/>
 
 						<label htmlFor="status">Status</label>
@@ -119,8 +176,24 @@ export default function EmployeeProfile() {
 									status: ev.target.value
 								})
 							}
-							disabled
+							hidden={!disabled}
 						/>
+						<select
+							type="text"
+							id="stats"
+							value={employee.status}
+							onChange={(ev) =>
+								setEmployee({
+									...employee,
+									status: ev.target.value
+								})
+							}
+							hidden={disabled}
+						>
+							<option value="employeed">Employeed</option>
+							<option value="retired">Retired</option>
+							<option value="Fired">Fired</option>
+						</select>
 					</div>
 					<div className="profile-row">
 						<label htmlFor="Date-hired">Date Hired</label>
@@ -134,7 +207,7 @@ export default function EmployeeProfile() {
 									date_hired: ev.target.value
 								})
 							}
-							disabled
+							disabled={disabled}
 						/>
 
 						<label htmlFor="Date-ended">Date Ended</label>
@@ -148,7 +221,7 @@ export default function EmployeeProfile() {
 									date_ended: ev.target.value
 								})
 							}
-							disabled
+							disabled={disabled}
 						/>
 					</div>
 					<br />
@@ -187,6 +260,29 @@ export default function EmployeeProfile() {
 							</tbody>
 						</table>
 					</div>
+					<br />
+
+					<h2>User</h2>
+					{user.email ? (
+						<div className="profile-row">
+							<label htmlFor="username" id="username">
+								Email
+							</label>
+							<input type="email" disabled value={user.email} />
+
+							<label htmlFor="role">Role</label>
+							<input
+								type="text"
+								id="role"
+								disabled
+								value={user.access_rights.role}
+							/>
+						</div>
+					) : (
+						<div className="profile-row">
+							<button onClick={createUser}>Create User</button>
+						</div>
+					)}
 				</div>
 			</div>
 		</>

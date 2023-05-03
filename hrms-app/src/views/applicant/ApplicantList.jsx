@@ -44,7 +44,8 @@ export default function ApplicantList() {
 								<th>Firstname</th>
 								<th>Lastname</th>
 								<th>Email</th>
-								<th>Resume</th>
+								<th>Status</th>
+								<th>Profile</th>
 							</tr>
 						</thead>
 
@@ -54,12 +55,12 @@ export default function ApplicantList() {
 									<td>{item.firstname}</td>
 									<td>{item.lastname}</td>
 									<td>{item.email}</td>
+									<td> {item.status} </td>
 									<td>
 										<Link
-											to={`/resume/${item.resume}`}
+											to={`/applicant-profile/${item._id}`}
 										>
 											View
-											Resume
 										</Link>
 									</td>
 								</tr>

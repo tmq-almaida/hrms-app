@@ -66,14 +66,12 @@ export const login = (req, res) => {
 
 		const token = Jwt.sign(user_id, process.env.ACCESS_TOKEN_SECRET);
 
-		return res
-			.status(200)
-			.json({
-				message: "Login Successful",
-				user: user.email,
-				user_role: user.access_rights.role,
-				access_token: token
-			});
+		return res.status(200).json({
+			message: "Login Successful",
+			user: user.email,
+			user_role: user.access_rights.role,
+			access_token: token
+		});
 	});
 };
 
@@ -146,6 +144,38 @@ export const employeeUser = (req, res) => {
 			if (err) return res.status(400).json({ message: err });
 
 			return res.status(200).json({ message: "Successfully user has been added" });
+		});
+	});
+};
+
+export const employeeChangePassword = (req, res, next) => {
+	const user_id = req.token;
+	const { old_password } = req.body;
+	const { password } = req.body;
+
+	Users.findOne({ _id: user_id }, (err, user) => {
+		if (err) return res.status(400).json({ message: err });
+
+		const decrypted_password = CryptoJS.AES.decrypt(user.password, `${secret_key}`);
+
+		const plain_text = decrypted_password.toString(CryptoJS.enc.Utf8);
+
+		console.log(plain_text);
+
+		if (old_password !== plain_text) {
+			return res.status(400).json({ message: "Incorrect Password" });
+		}
+
+		const encrypt_password = CryptoJS.AES.encrypt(password, `${secret_key}`).toString();
+
+		const password_update = {
+			password: encrypt_password
+		};
+
+		Users.findByIdAndUpdate(user_id, password_update, (err) => {
+			if (err) return res.status(401).json({ message: "Unathenticated" });
+
+			return res.status(200).json({ message: "password is updated" });
 		});
 	});
 };

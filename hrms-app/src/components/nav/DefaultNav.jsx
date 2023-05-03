@@ -26,6 +26,9 @@ export default function DefaultNav() {
 						<Link className="nav-link" to="/my-attendance">
 							My Attendance
 						</Link>
+						<Link className="nav-link" to="/change-password">
+							Change Password
+						</Link>
 					</div>
 				</div>
 				<div>
@@ -49,8 +52,8 @@ export default function DefaultNav() {
 							<Link className="nav-link" to="/my-company">
 								My Company/s
 							</Link>
-							<Link className="nav-link" to="/job-list">
-								Job List
+							<Link className="nav-link" to="/change-password">
+								Change Password
 							</Link>
 						</div>
 					</div>

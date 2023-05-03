@@ -37,6 +37,7 @@ export default function Company() {
 							<th>company name</th>
 							<th>Company Description</th>
 							<th>Employee List</th>
+							<th>Job List</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,6 +51,13 @@ export default function Company() {
 										to={`/company-employee-list/${company._id}`}
 									>
 										Employees
+									</Link>
+								</td>
+								<td>
+									<Link
+										to={`/job-list/${company._id}`}
+									>
+										Jobs
 									</Link>
 								</td>
 							</tr>

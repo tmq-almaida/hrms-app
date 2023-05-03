@@ -15,6 +15,17 @@ export const ApplicantSchema = new Schema({
 		type: String,
 		require: [true, "Enter Email"]
 	},
+	company: {
+		type: Schema.Types.ObjectId,
+		ref: "Company"
+	},
+	position: {
+		type: String
+	},
+	status: {
+		type: String,
+		default: "Applicant"
+	},
 	resume: {
 		type: Schema.Types.ObjectId,
 		ref: "resume"

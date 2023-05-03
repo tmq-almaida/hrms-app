@@ -166,3 +166,11 @@ h1 {
 .attendance-panel button {
 	margin: 15px 0px;
 }
+
+.employee-button {
+	padding: 5px;
+	max-width: 250px;
+	margin-left: 50%;
+
+	font-size: 15px;
+}

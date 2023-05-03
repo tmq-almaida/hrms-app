@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import axios_client from "../../axios-client";
 
 export default function JobList() {
 	const [jobs, setJobs] = useState([]);
+	const { id } = useParams();
 
 	const navigate = useNavigate();
 
@@ -13,8 +14,9 @@ export default function JobList() {
 
 	const getJobs = () => {
 		axios_client
-			.get("/get-jobs")
+			.get(`/get-jobs/${id}`)
 			.then(({ data }) => {
+				// console.log(data);
 				setJobs(data.data);
 			})
 			.catch((error) => {
@@ -28,7 +30,7 @@ export default function JobList() {
 				<button
 					className="create-button"
 					onClick={() => {
-						navigate("/job-list/new");
+						navigate("/job/new");
 					}}
 				>
 					Create Job Post
@@ -38,7 +40,6 @@ export default function JobList() {
 				<table>
 					<thead>
 						<tr>
-							<th>Company</th>
 							<th>Job Title</th>
 							<th>Position</th>
 							<th>Start</th>
@@ -48,21 +49,20 @@ export default function JobList() {
 					</thead>
 					<tbody>
 						{jobs.map((job) => (
-							<tr key={job.id}>
-								<td>{job.company_name}</td>
+							<tr key={job._id}>
 								<td>{job.title}</td>
 								<td>{job.position}</td>
 								<td>{job.start_date}</td>
 								<td>{job.end_date}</td>
 								<td className="table-controls">
 									<Link
-										to={`/applicant-list/${job.id}`}
+										to={`/applicant-list/${job._id}`}
 										className="table-button"
 									>
 										View Applicants
 									</Link>
 									<Link
-										to={`/job-list/${job.id}`}
+										to={`/edit-job/${job._id}`}
 										className="table-button"
 									>
 										Edit

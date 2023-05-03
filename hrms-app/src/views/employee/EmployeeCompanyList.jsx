@@ -62,10 +62,23 @@ export default function EmployeeCompanyList() {
 								<td>{item.status}</td>
 								<td>
 									<Link
+										className="table-button"
 										to={`/employee-profile/${item._id}`}
 									>
 										View Profile
 									</Link>
+
+									{!item.user ? (
+										<Link
+											to={`/create-user/${item._id}`}
+											className="table-button"
+										>
+											Create
+											User
+										</Link>
+									) : (
+										""
+									)}
 								</td>
 							</tr>
 						))}

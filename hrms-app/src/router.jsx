@@ -14,14 +14,17 @@ import CreateEditJob from "./views/job/CreateEditJob";
 import Test from "./views/job/Test";
 import QuestJobList from "./views/job/QuestJobList";
 import JobProfile from "./views/job/JobProfile";
-import ApplicationForm from "./views/job/ApplicationForm";
-import ApplicantList from "./views/job/ApplicantList";
+import ApplicationForm from "./views/applicant/ApplicationForm";
+import ApplicantList from "./views/applicant/ApplicantList";
 import Resume from "./views/job/Resume";
 import EmployeeCompanyList from "./views/employee/EmployeeCompanyList";
 import CreateEmployee from "./views/employee/CreateEmployee";
 import EmployeeProfile from "./views/employee/EmployeeProfile";
 import Attendance from "./views/employee/Attendance";
 import EmployeeAttendance from "./views/employee/EmployeeAttendance";
+import EmployeeCreateUser from "./views/employee/EmployeeCreateUser";
+import ApplicantProfile from "./views/applicant/ApplicantProfile";
+import ChangePassword from "./views/employee/ChangePassword";
 
 const router = createBrowserRouter([
 	{
@@ -84,15 +87,15 @@ const router = createBrowserRouter([
 				element: <CreateCompany />
 			},
 			{
-				path: "/job-list",
+				path: "/job-list/:id",
 				element: <JobList />
 			},
 			{
-				path: "/job-list/new",
+				path: "/job/new",
 				element: <CreateEditJob key="jobCreate" />
 			},
 			{
-				path: "/job-list/:id",
+				path: "/edit-job/:id",
 				element: <CreateEditJob key="jobEdit" />
 			},
 			{
@@ -122,6 +125,18 @@ const router = createBrowserRouter([
 			{
 				path: "/my-attendance",
 				element: <EmployeeAttendance />
+			},
+			{
+				path: "/create-user/:id",
+				element: <EmployeeCreateUser />
+			},
+			{
+				path: "/applicant-profile/:id",
+				element: <ApplicantProfile />
+			},
+			{
+				path: "/change-password",
+				element: <ChangePassword />
 			}
 		]
 	},

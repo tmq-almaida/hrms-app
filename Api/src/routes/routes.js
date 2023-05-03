@@ -8,10 +8,17 @@ import {
 	questGetJob
 } from "../controllers/jobController";
 import { createCompany, getCompany, getCompanyJobs } from "../controllers/companyController";
-import { createUser, employeeUser, forgotPassword, login, resetPassword } from "../controllers/usersController";
+import {
+	createUser,
+	employeeChangePassword,
+	employeeUser,
+	forgotPassword,
+	login,
+	resetPassword
+} from "../controllers/usersController";
 import { authenticateToken, authenticateTokenParams } from "../middleware/authTokenMiddleware";
 import { passwordCheck } from "../middleware/usersMiddleware";
-import { getApplicants, submitApplication } from "../controllers/applicantController";
+import { getApplicant, getApplicants, submitApplication, updateApplicant } from "../controllers/applicantController";
 import { uploadMiddleware } from "../middleware/uploadMiddleware";
 import { findResume } from "../controllers/resumeController";
 import {
@@ -44,7 +51,7 @@ const routes = (app) => {
 	app.route("/create-job").post(authenticateToken, createJob);
 	app.route("/edit-job").put(authenticateToken, editJob);
 	app.route("/delete-job").delete(authenticateToken, deleteJob);
-	app.route("/get-jobs").get(authenticateToken, getJobList);
+	app.route("/get-jobs/:id").get(authenticateToken, getJobList);
 	app.route("/get-job/:id").get(authenticateToken, getJob);
 	app.route("/quest-job-list").get(getQuestJobList);
 	app.route("/quest-job/:id").get(questGetJob);
@@ -53,6 +60,8 @@ const routes = (app) => {
 	app.route("/submit-application").post(uploadMiddleware, submitApplication);
 	app.route("/job-applicants/:id").get(authenticateToken, getApplicants);
 	app.route("/get-resume/:id").get(authenticateToken, findResume);
+	app.route("/applicant-profile/:id").get(authenticateToken, getApplicant);
+	app.route("/update-applicant/:id").put(authenticateToken, updateApplicant);
 
 	//employee routes
 	app.route("/create-employee").post(authenticateToken, createEmployee);
@@ -60,6 +69,7 @@ const routes = (app) => {
 	app.route("/company-employees/:id").get(authenticateToken, getEmployeeByCompany);
 	app.route("/employee-profile/:id").get(authenticateToken, getEmployeeProfile);
 	app.route("/add-user/:id").post(authenticateToken, passwordCheck, employeeUser);
+	app.route("/employee-change-password").put(authenticateToken, passwordCheck, employeeChangePassword);
 
 	//time-in time-out
 	app.route("/employee-timein").post(authenticateToken, employeeTimeIn);

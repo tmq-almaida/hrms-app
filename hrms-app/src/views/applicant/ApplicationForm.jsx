@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios_client from "../../axios-client";
-import axios from "axios";
 
 export default function ApplicationForm() {
 	const firstname = useRef();

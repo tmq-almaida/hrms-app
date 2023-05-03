@@ -16,7 +16,7 @@ export const createEmployee = (req, res) => {
 		if (err) return res.status(400).json({ message: "Company Error" });
 
 		const new_employee = new Employee(employee);
-		new_employee.save((err) => {
+		new_employee.save((err, employee) => {
 			if (err) return res.status(400), json({ message: err });
 
 			Company.findByIdAndUpdate(
@@ -28,7 +28,8 @@ export const createEmployee = (req, res) => {
 					if (err) return res.status(400).json({ message: err });
 
 					return res.status(200).json({
-						message: "Successfully Create a Employee"
+						message: "Successfully Create a Employee",
+						data: employee
 					});
 				}
 			);
@@ -69,6 +70,7 @@ export const getEmployeeProfile = (req, res) => {
 	Employee.findOne({ _id: id })
 		.populate("attendance")
 		.populate("company_id")
+		.populate("user")
 		.exec((err, employee) => {
 			if (err) return res.status(400).json({ message: "Employee not found!" });
 

@@ -68,7 +68,7 @@ export default function CreateEditJob() {
 			.post("/create-job", payload)
 			.then((response) => {
 				alert(response.data.message);
-				navigate("/job-list");
+				navigate(`/job-list/${payload.company_id}`);
 			})
 			.catch((err) => {
 				alert(err.response.data.message);
@@ -80,7 +80,7 @@ export default function CreateEditJob() {
 			.put("/edit-job", payload)
 			.then((response) => {
 				alert(response.data.message);
-				navigate("/job-list");
+				navigate(`/job-list/${payload.company_id}`);
 			})
 			.catch((err) => {
 				alert(err.response.data.message);
