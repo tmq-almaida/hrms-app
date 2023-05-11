@@ -10,7 +10,7 @@ import cors from "cors";
 const env = dotenv;
 env.config();
 
-const environment = process.env.env;
+const environment = process.env.ENV;
 
 //database url
 const dbConnection = process.env.DB_CONNECTION;
