@@ -38,10 +38,7 @@ if (environment === "DEV") {
 			useUnifiedTopology: true
 		},
 		() => console.log("Connected")
-	).catch((err) => {
-		console.log("connection Error");
-		console.log(err.reason);
-	});
+	);
 }
 
 //server
