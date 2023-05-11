@@ -31,10 +31,17 @@ if (environment === "DEV") {
 	console.log("HERE");
 
 	mongoose.Promise = global.Promise;
-	mongoose.connect(production_url, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true
-	}).catch((err) => console.log(err.reason));
+	mongoose.connect(
+		production_url,
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		},
+		() => console.log("Connected")
+	).catch((err) => {
+		console.log("connection Error");
+		console.log(err.reason);
+	});
 }
 
 //server
