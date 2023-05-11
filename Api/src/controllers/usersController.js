@@ -116,7 +116,7 @@ export const employeeUser = (req, res) => {
 	const { id } = req.params;
 	const { email, password } = req.body;
 
-	const valid_email = isEmail(email);
+	const valid_email = validator.isEmail(email);
 
 	if (!valid_email) {
 		return res.status(400).json({ message: "Email is invalid" });
