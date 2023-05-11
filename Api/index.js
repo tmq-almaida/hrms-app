@@ -10,6 +10,8 @@ import cors from "cors";
 const env = dotenv;
 env.config();
 
+const environment = process.env.env;
+
 //database url
 const dbConnection = process.env.DB_CONNECTION;
 const dbHost = process.env.DB_HOST;
@@ -17,11 +19,21 @@ const dbDatabase = process.env.DB_DATABASE;
 const databaseUrl = `${dbConnection}://${dbHost}/${dbDatabase}`;
 
 //database connection
-mongoose.Promise = global.Promise;
-mongoose.connect(databaseUrl, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-});
+if (environment === "DEV") {
+	mongoose.Promise = global.Promise;
+	mongoose.connect(databaseUrl, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	});
+} else {
+	const production_url = process.env.PROD_CONNECTION;
+
+	mongoose.Promise = global.Promise;
+	mongoose.connect(production_url, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	});
+}
 
 //server
 const app = express();
