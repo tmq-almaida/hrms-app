@@ -2,7 +2,7 @@ module.exports = {
 	apps: [
 		{
 			name: "myapp",
-			script: "src/index.js",
+			script: "Api/index.js",
 			interpreter: "@babel/node",
 			interpreter_args: "--extensions .js",
 			watch: true,
