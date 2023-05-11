@@ -34,7 +34,7 @@ if (environment === "DEV") {
 	mongoose.connect(production_url, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
-	});
+	}).catch((err) => console.log(err.reason));
 }
 
 //server
