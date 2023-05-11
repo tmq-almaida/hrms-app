@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { UserSchema } from "../models/usersModels";
 import { EmployeeSchema } from "../models/employeeModel";
 import CryptoJS from "crypto-js";
-import isEmail from "validator/lib/isemail";
+import validator from "validator";
 import Jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 
@@ -13,7 +13,7 @@ const secret_key = process.env.SECRET_KEY;
 export const createUser = (req, res) => {
 	const { email, password } = req.body;
 
-	const valid_email = isEmail(email);
+	const valid_email = validator.isEmail(email);
 
 	if (!valid_email) {
 		return res.status(400).json({ message: "Email is invalid" });
