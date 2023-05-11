@@ -10,7 +10,7 @@ import cors from "cors";
 const env = dotenv;
 env.config();
 
-const environment = process.env.ENV;
+const environment = process.env.NODE_ENV;
 
 //database url
 const dbConnection = process.env.DB_CONNECTION;
@@ -25,8 +25,10 @@ if (environment === "DEV") {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
 	});
-} else {
+} else if (environment === "PROD") {
 	const production_url = process.env.PROD_CONNECTION;
+
+	console.log("HERE");
 
 	mongoose.Promise = global.Promise;
 	mongoose.connect(production_url, {
