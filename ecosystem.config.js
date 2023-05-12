@@ -3,7 +3,9 @@ module.exports = {
 		{
 			name: "myapp",
 			script: "Api/index.js",
-			interpreter: "node@6.9.1"
+			watch: true,
+			exec_interpreter: "babel-node",
+			exec_mode: "fork"
 		}
 	]
 };
